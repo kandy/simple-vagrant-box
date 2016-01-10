@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "192.168.133.133"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -37,7 +37,8 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder ".", "/vagrant"
+  config.vm.synced_folder ".", "/vagrant", type: "nfs", :mount_options => ['nolock,vers=3,udp,noatime']
+  config.vm.synced_folder "../Projects", "/projects", type: "nfs", :mount_options => ['nolock,vers=3,udp,noatime']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -64,24 +65,5 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-get install -y software-properties-common
-    sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
-    sudo add-apt-repository "deb http://dl.hhvm.com/ubuntu trusty main"
-
-    wget -O- http://nginx.org/keys/nginx_signing.key | sudo apt-key add -
-    sudo add-apt-repository "deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx"
-
-    wget -O- https://deb.nodesource.com/setup_0.12 | sudo bash -
-
-    sudo apt-get update
-    sudo apt-get install -y curl nginx nodejs build-essential unzip
-
-    sudo apt-get install python-software-properties
-    sudo add-apt-repository ppa:ondrej/php-7.0
-    sudo apt-get update
-    sudo apt-get purge php5-fpm
-    sudo apt-get install php7.0 php7.0-fpm php7.0-mysql
-    sudo apt-get --purge autoremove
-  SHELL
+  config.vm.provision "shell", path: "provision/setup.sh"
 end
