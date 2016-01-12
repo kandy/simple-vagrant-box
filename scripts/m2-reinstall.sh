@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DIR=$1
-DIR=/projects/magento2
+DIR=$MAGENTO2_DIR$
 DB_NAME=$2
 DB_NAME="magento2"
 
