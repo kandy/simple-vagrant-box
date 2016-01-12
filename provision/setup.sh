@@ -5,6 +5,7 @@ echo "Provisioning virtual machine..."
 echo "Configuration Machine"
 sudo locale-gen UTF-8
 sudo echo "127.0.0.1 ohorodnyk.dev www.ohorodnyk.dev" >> /etc/hosts
+sudo echo "127.0.0.1 magento.two" >> /etc/hosts
 sudo apt-get install python-software-properties -y
 
 echo "Installing Git"
