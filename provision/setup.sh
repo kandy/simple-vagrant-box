@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
 
-./config.sh
+source /vagrant/provision/config.sh
 
 echo "Provisioning virtual machine..."
+
+echo $MAGENTO2_DIR
 
 echo "Configuration Machine"
 sudo locale-gen UTF-8
 sudo echo "127.0.0.1 ohorodnyk.dev www.ohorodnyk.dev" >> /etc/hosts
 sudo echo "127.0.0.1 magento.two" >> /etc/hosts
 sudo apt-get install python-software-properties -y
-cp ./scripts/m2-reinstall.sh ~/
-sed -i "s/\$MAGENTO2_DIR\$/$MAGENTO2_DIR/g" ~/m2-reinstall.sh
-chmod +x ~/m2-reinstall.sh
+cp $VAGRANT_DIR/scripts/m2-reinstall.sh $VAGRANT_USER_HOME_DIR/
+sed -i "s,\$MAGENTO2_DIR\$,$MAGENTO2_DIR,g" $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
+sudo mkdir -p $MAGENTO2_DIR
+sudo chown -R vagrant.vagrant $MAGENTO2_DIR
+chown -R vagrant.vagrant $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
+chmod +x $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
 
 echo "Installing Git"
 sudo apt-get install git -y
@@ -39,8 +44,8 @@ sudo apt-key add nginx_signing.key
 sudo apt-get update
 sudo apt-get install nginx -y
 sudo rm -rf /etc/nginx/conf.d/*
-sudo cp ./provision/conf/* /etc/nginx/conf.d/
-sudo sed -i "s/\$MAGENTO2_DIR\$/$MAGENTO2_DIR/g" /etc/nginx/conf.d/magento.two.conf
+sudo cp $VAGRANT_DIR/provision/conf/* /etc/nginx/conf.d/
+sudo sed -i "s,\$MAGENTO2_DIR\$,$MAGENTO2_DIR,g" /etc/nginx/conf.d/magento.two.conf
 sudo sed -i "s/nginx;/vagrant vagrant;/g" /etc/nginx/nginx.conf
 sudo service nginx restart
 
