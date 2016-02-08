@@ -25,7 +25,8 @@ echo "Installing MC"
 sudo apt-get install mc -y
 
 echo "Installing PHP 7"
-sudo apt-get purge php5-fpm -y && apt-get --purge autoremove -y
+sudo apt-get purge php5-fpm -y 
+sudo apt-get --purge autoremove -y
 sudo add-apt-repository ppa:ondrej/php-7.0
 sudo apt-get update
 sudo apt-get install php-xdebug php7.0-fpm php7.0-curl php7.0-cli php7.0-mcrypt php7.0-json php7.0-sqlite3 php7.0-intl php7.0-xsl php7.0-gd php7.0-mysql -y
