@@ -11,12 +11,12 @@ sudo locale-gen UTF-8
 sudo echo "127.0.0.1 ohorodnyk.dev www.ohorodnyk.dev" >> /etc/hosts
 sudo echo "127.0.0.1 magento.two" >> /etc/hosts
 sudo apt-get install python-software-properties -y
-cp $VAGRANT_DIR/scripts/m2-reinstall.sh $VAGRANT_USER_HOME_DIR/
-sed -i "s,\$MAGENTO2_DIR\$,$MAGENTO2_DIR,g" $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
+sudo cp $VAGRANT_DIR/scripts/m2-reinstall.sh $VAGRANT_USER_HOME_DIR/
+sudo sed -i "s,\$MAGENTO2_DIR\$,$MAGENTO2_DIR,g" $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
 sudo mkdir -p $MAGENTO2_DIR
 sudo chown -R vagrant.vagrant $MAGENTO2_DIR
-chown -R vagrant.vagrant $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
-chmod +x $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
+sudo chown -R vagrant.vagrant $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
+sudo chmod +x $VAGRANT_USER_HOME_DIR/m2-reinstall.sh
 
 echo "Installing Git"
 sudo apt-get install git -y
