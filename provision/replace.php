@@ -1,13 +1,14 @@
 <?php
 
-function getDirContents($dir, $results = array()){
+function getDirContents($dir, $results = array())
+{
     $files = scandir($dir);
 
-    foreach($files as $key => $value){
-        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
-        if(!is_dir($path) && !strstr($path,  '.php')) {
+    foreach ($files as $key => $value) {
+        $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
+        if (!is_dir($path) && !strstr($path, '.php')) {
             $results[] = $path;
-        } else if(is_dir($path) && $value != "." && $value != "..") {
+        } else if (is_dir($path) && $value != "." && $value != "..") {
             $results = getDirContents($path, $results);
         }
     }
@@ -30,5 +31,3 @@ foreach (getDirContents(__DIR__) as $fileName) {
 
     file_put_contents($newFileName, $fileContent);
 }
-
-
