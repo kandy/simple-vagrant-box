@@ -2,4 +2,4 @@
 .vagrant/
 provision/nginx/conf.d/
 !.gitkeep
-scripts/*.sh
+provision/scripts/*.sh
