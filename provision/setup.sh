@@ -19,9 +19,16 @@ sudo apt-get install git -y
 echo "Installing MC"
 sudo apt-get install mc -y
 
+echo "Installing HTOP"
+sudo apt-get install htop -y
+
 echo "Installing PHP 7"
-sudo apt-get install -y php-fpm php-curl php-cli php-mcrypt php-json php-xdebug \
-    php-sqlite3 php-intl php-xsl php-gd php-mysql php-amqp php-amqplib php-zip
+# echo Instsalling php 7 fom proposed repo
+# sudo sh -c "echo 'deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-proposed restricted main multiverse universe' >> /etc/apt/sources.list.d/proposed-repositories.list"
+# sudo apt-get update
+# sudo apt-get -t $(lsb_release -cs)-proposed install php-fpm ...
+sudo apt-get install -y php-fpm php-curl php-cli php-mcrypt php-json php-xdebug php-mbstring \
+    php-sqlite3 php-intl php-xsl php-gd php-mysql php-amqp php-amqplib php-zip php-bcmath
 sudo sed -i "s/www-data/ubuntu/g" /etc/php/7.0/fpm/pool.d/www.conf
 sudo sed -i "s/;listen.mode/listen.mode = 0777;/g" /etc/php/7.0/fpm/pool.d/www.conf
 sudo service php7.0-fpm restart
