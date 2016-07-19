@@ -9,7 +9,7 @@ services:
         pid: "host"
         volumes:
             - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
-            - ./projects/:/projects/:rw
+            - /projects/:/projects/:rw
             - /var/run/php/php7.0-fpm.sock:/var/run/php/php7.0-fpm.sock:rw
         networks:
             - web
