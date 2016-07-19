@@ -1,0 +1,29 @@
+version: '2'
+services:
+    nginx:
+        restart: always
+        image: nginx:stable-alpine
+        ports:
+            - 80:80
+            - 443:443
+        pid: "host"
+        volumes:
+            - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+            - ./projects/:/projects/:rw
+            - /var/run/php/php7.0-fpm.sock:/var/run/php/php7.0-fpm.sock:rw
+        networks:
+            - web
+    mysql:
+        restart: always
+        image: mysql:5.7
+        ports:
+            - 3306:3306
+        pid: "host"
+        volumes:
+            - /var/lib/mysql:/var/lib/mysql:rw
+        networks:
+            - web
+        environment:
+            - MYSQL_ROOT_PASSWORD=123123q
+networks:
+    web:

@@ -1,2 +1,5 @@
-.idea/*
-.vagrant/*
+.idea/
+.vagrant/
+provision/nginx/conf.d/
+!.gitkeep
+scripts/*.sh
